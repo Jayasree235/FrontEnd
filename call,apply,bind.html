@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var emp1={fname:"John", lname:"bob"};
+        var emp2={fname:"Bhavya", lname:"Rani"};
+        var emp3={fname:"Sree", lname:"Janu"};
+
+        function invite(greet1,greet2){
+            console.log(greet1 +" " +this.fname+ greet2 +" "+this.lname);
+        }
+
+        invite.call(emp1,"Hello", " How are you?");
+        invite.apply(emp2,["Hello", " How are you?"]);
+        var bind=invite.bind(emp3,"Hello", " How are you?");
+        var binding=invite.bind(emp1);
+        binding("Hello", " How are you?")
+
+    </script>
+</body>
+</html>

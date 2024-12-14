@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let account={
+            addr:"hyd"
+        };
+        let person={
+            name:"Bhavya",
+            age:23
+        };
+        
+        person.name="Arjith";
+        
+        person.__proto__=account;
+        let savings={ };
+        savings.__proto__==person;
+        
+        console.log(person.name);
+        console.log(person.addr);
+    </script>
+    
+</body>
+</html>

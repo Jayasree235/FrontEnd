@@ -6,16 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-
     <script>
-        let person={};
+        function createUser(name, age, role = "user") {
+  return {
+    name: name,
+    age: age,
+    role: role
+  };
+}
 
-            person.firstName="John";
-            person.lastName="Bob",
-            person.age=23
-        delete person.age;
+let newUser = createUser("Tom", 30);
+console.log(newUser);  // { name: "Tom", age: 30, role: "user" }
 
-        console.log(person);
     </script>
 </body>
 </html>

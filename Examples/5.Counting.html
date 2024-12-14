@@ -6,7 +6,20 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="5.Counting.js"></script>
+    <script>
+    function countfun(obj){
+        let count=0;
+        for(let key in obj){
+            count++
+        }
+        return count;
+    }
+    let user={
+        name:"bhavya",
+        age:23
+    }
+    console.log(countfun(user));
+      </script>
     
 </body>
 </html>

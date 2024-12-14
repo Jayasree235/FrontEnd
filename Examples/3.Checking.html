@@ -6,6 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="3.book.js"></script>
+    <script>
+        let book={
+            title:"ABC",
+            author:"John"
+        };
+        function hasproperty(book,title){
+        return title in book;
+        }
+        console.log(hasproperty(book,"title"));
+        console.log(hasproperty(book,"tittle"));
+
+    </script>
 </body>
 </html>
