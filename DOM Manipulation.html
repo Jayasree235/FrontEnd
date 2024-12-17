@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--getElementById-->
+    <h1 id="title">JavaScript</h1>
+
+    <!--getElementByClassname-->
+    <h2 class="class1">getElementByClassname</h2>
+    <h2 class="class1">Represents in</h2>
+    <h2 class="class2">Array</h2>
+
+    <!--getElementsByTagName-->
+    <p>TagName1</p>
+    <p>TagName2</p>
+    <p>TagName3</p>
+
+    <script>
+        let ele = document.getElementById("title");
+        ele.style.backgroundColor="aqua";
+
+        let ele1=document.getElementsByClassName("class1");
+        ele1[0].style.backgroundColor="green";
+        ele1[1].style.backgroundColor="blue"
+
+        let element=document.getElementsByClassName("class2");
+        element[0].style.backgroundColor="yellow";
+
+        let ele2=document.getElementsByTagName('p');
+        ele2[0].style.backgroundColor="red";
+        ele2[1].style.backgroundColor="violet";
+        ele2[2].style.backgroundColor="blueviolet"
+    </script>
+</body>
+</html>
