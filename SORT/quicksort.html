@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function quicksort(arr){
+            let n= arr.length;
+            if(n<=1)
+            return arr;
+        let pivot=arr[n-1];
+
+        let smaller=[]
+        let greater=[];
+
+        for(let i=0;i<n-1;i++){
+            if(arr[i]<pivot){
+                smaller.push(arr[i]);
+            }else{
+                greater.push(arr[i]);
+            }
+        }
+        return [...quicksort(smaller),pivot, ...quicksort(greater)];
+        }
+        let arr=[32,41,12];
+        let ans= quicksort(arr);
+        console.log(ans);
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

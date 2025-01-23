@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Github User Fetch</h1>
+    <input id="data" type="text" placeholder="Enter username">
+    <button id="fetch" onclick="GithubUser()">Fetch user</button>
+
+    <div id="userDetails">   
+        <img src="" id="avatar" alt="No image"/> 
+        <h2 id="name"></h2> 
+        <p id="repos"></p> 
+        <p id="followers"></p>
+    </div>
+
+    <script>
+        function getGitHubUser(username){
+            const url=`https://api.github.com/users/${username}`;
+            fetch(url)
+            .then((response) =>{ 
+                return response.json()
+            }) 
+            .then((userData) => {
+                console.log('GitHub User Data:', userData);
+                document.getElementById("name").textContent =userData.name;
+                document.getElementById("avatar").src = userData.avatar_url;
+            })
+            .catch(error){
+            console.error("Failed to fetch GitHub user data:", error);
+            };
+         }
+         getGitHubUser("Jayasree235");
+
+    </script>
+</body>
+</html>

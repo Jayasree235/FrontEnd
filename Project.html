@@ -18,12 +18,25 @@
         const List=document.getElementById("itemList");
 
        //buttom.addEventListener('click',()=>console.log("hi welcome"));
-       buttom.addEventListener('click',function()=>);
-
-       const liele=document.createElement("li");
-       liele.textContent("hello");
+       buttom.addEventListener('click',function(){
+        if(input.value.trim()!==''){
+            const liele=document.createElement("li");
+            liele.textContent=input.value;
        
-       List.appendChild(liele);
+            List.appendChild(liele);
+            input.value='';
+
+            let db=document.createElement("button");
+            db.textContent="delete"
+            liele.appendChild(db)
+
+            db.addEventListener('click',function(){
+                liele.remove();
+            });
+        }
+       });
+
+       
 
     </script>
 </body>

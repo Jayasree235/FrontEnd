@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+    <script>
+var productsData=[
+    {
+        id:1,
+        name:"Laptop",
+        price:50000,     
+    },
+    {
+        id:2,
+        name:"Phone",
+        price:20000,       
+    },
+    {
+        id:3,
+        name: "BOOK",
+        price:350,
+    }
+];
+function fetchProducts(){  
+   // setTime(function(){});
+    var products=productsData;
+    var productList=document.createElement('ul');
+    products.forEach((product)=>{
+      var listItem=document.createElement('li')
+     listItem.textContent=`${product.name}-${product.price}`;
+     productList.appendChild(listItem);
+    });
+document.body.appendChild(productList);};
+    </script>
+    <body>
+        <h1>Products</h1>
+        <button onclick="fetchProducts()">FetchProducts</button>
+    </body>
+</html>
+<!--
+     <script>
+        var productDetails=[{Name:"vivo",Price:"15000"},{Name:"samsung",Price:20000}];
+        function fetchProducts(){//console.log(ProductDetails);setTimeout((=>))
+             var products=productDetails;
+             var productlist=document.createElement('ul');
+             products.forEach((p)=>{
+                var list=document.createElement('li');
+                list.textContent=`${p.name}-${p.price}`;
+                productlist.appendchild(list);
+             });
+
+             document.body.appendChild(productlist,2000);
+        }
+    </script>
+</head>
+<body>
+    <h1>Product Details</h1>
+    <button onclick="fetchProducts()">Fetch</button>
+</body>
+</html>
+-->

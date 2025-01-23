@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>       
+        
+        function fetchUserData(){
+            return new Promise((resolve)=>{
+                setTimeout(()=>{resolve('User data received')},1000)
+            });
+        }
+
+        function fetchpost(){
+            return new Promise((resolve)=>{
+                setTimeout(()=>{resolve('Post Data received')},500)
+            });
+        }
+        fetchUserData()
+        .then((userdata)=>{
+            console.log(userdata);
+            return fetchpost();
+        })
+        .then((post)=>{
+            console.log(post);
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+        
+        
+        async function abc(){
+            try{
+            let postdata=await fetchpost();
+            console.log(postdata);
+            let userdata=await fetchUserData();
+            console.log(userdata);
+            }catch(error){
+                console.log(error);
+            }   
+        }
+        abc();
+        
+
+        
+
+        
+    </script>
+</body>
+</html>

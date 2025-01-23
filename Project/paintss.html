@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas POC</title>
+    <script
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      .canvas-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #drawing-area {
+        border: 1px solid black;
+        margin: 1rem 0;
+      }
+
+      .canvas-container__tools {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .tool {
+        cursor: pointer;
+        border: 1px solid black;
+        padding: 0.5rem 1rem;
+        font-size: 1.5rem;
+        margin: 0 0.5rem;
+      }
+      .color-picker {
+      display: none;
+      margin-top: 1rem;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="canvas-container">
+      <canvas id="drawing-area" height="500" width="500"></canvas>
+      <div class="canvas-container__tools">
+        <div class="tool pencil" onclick="selectPen()">Pencil</div>
+        <div class="tool square" onclick="selectSquare()">Square</div>        
+        <div class="tool line" onclick="selectLine()">Line</div>
+        <div class="tool circle" onclick="selectCircle()">Circle</div>
+        <div class="tool eraser" onclick="toggleEraser()">Eraser</div>
+        <div class="tool clear" onclick="clearCanvas()">Clear</div>
+      </div>
+      <input
+    type="color"
+    id="color-picker"
+    class="color-picker"
+    onchange="changeColor(this.value)"
+  />
+    </div>
+
+    <script>
+      const canvas = document.querySelector("#drawing-area");
+      const colorPicker = document.querySelector("#color-picker");
+      let drawing = false;
+      let eraser = false;
+      let defaultStyle = "rgb(255, 255, 255)";
+      
+      let startX, startY;
+
+      let ctx = canvas.getContext("2d");
+
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "rgb(255, 255, 255)";
+      ctx.strokeStyle = "rgb(0, 0, 0)";
+
+      let currentColor = "rgb(0, 0, 0)";
+const colorPicker = document.querySelector("#color-picker");
+
+const selectPen = () => {
+  eraser = false;
+  tool = "pencil";
+  colorPicker.style.display = "block"; // Show the color picker
+};
+
+const changeColor = (color) => {
+  currentColor = color; // Update the current color
+  ctx.strokeStyle = currentColor; // Set the color for drawing
+};
+
+function drawOnCanvas(startX, startY, currentX, currentY) {
+  ctx.strokeStyle = currentColor; // Use the selected color
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  ctx.lineTo(currentX, currentY);
+  ctx.stroke();
+}
+
+
+      function eraseOnCanvas(currentX, currentY) {
+        ctx.fillStyle = "rgb(255, 255, 255)";
+        ctx.fillRect(currentX, currentY, 20, 20);
+      }
+
+      function drawOnCanvas(startX, startY, currentX, currentY) {
+        ctx.strokeStyle = "rgb(0, 0, 0)";
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(currentX, currentY);
+        ctx.stroke();
+      }
+
+      function drawLine(startX, startY, endX, endY) {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+        ctx.stroke();
+      }
+
+      function drawCircle(startX, startY, endX, endY) {
+        const radius = Math.sqrt(
+          Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)
+        );
+        ctx.beginPath();
+        ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      function drawSquare(startX, startY, endX, endY) {
+        const side = Math.max(Math.abs(endX - startX), Math.abs(endY - startY));
+        ctx.beginPath();
+        ctx.rect(
+          startX,
+          startY,
+          endX > startX ? side : -side,
+          endY > startY ? side : -side
+        );
+        ctx.stroke();
+      }
+
+      canvas.addEventListener("mousedown", (e) => {
+        startX = e.offsetX;
+        startY = e.offsetY;
+        drawing = true;
+      });
+
+      canvas.addEventListener("mousemove", (e) => {
+        if (!drawing || tool !== "pencil") return;
+
+        const currentX = e.offsetX;
+        const currentY = e.offsetY;
+
+        if (eraser) {
+          eraseOnCanvas(currentX, currentY);
+        } else {
+          drawOnCanvas(startX, startY, currentX, currentY);
+          startX = currentX;
+          startY = currentY;
+        }
+      });
+
+      canvas.addEventListener("mouseup", (e) => {
+        if (!drawing) return;
+        const endX = e.offsetX;
+        const endY = e.offsetY;
+
+        if (tool === "line") {
+          drawLine(startX, startY, endX, endY);
+        } else if (tool === "circle") {
+          drawCircle(startX, startY, endX, endY);
+        } else if (tool === "square") {
+          drawSquare(startX, startY, endX, endY);
+        }
+
+        drawing = false;
+      });
+
+      const toggleEraser = () => {
+        eraser = true;
+        tool = "pencil";
+      };
+
+      const selectPen = () => {
+        eraser = false;
+        colorPicker.click();
+      };
+      const changeColor = (color) => {
+  currentColor = color; // Update the current color
+};
+
+
+      const selectLine = () => {
+        tool = "line";
+      };
+
+      const selectCircle = () => {
+        tool = "circle";
+      };
+
+      const selectSquare = () => {
+        tool = "square";
+      };
+
+      const clearCanvas = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        eraser = false;
+        tool = "pencil";
+      };
+    </script>
+  </body>
+</html>

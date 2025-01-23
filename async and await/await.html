@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function userdata(){
+    return new Promise((resolve,reject)=>{setTimeout(()=>resolve("user data recives"),1000);
+    });
+}
+function postdata(){
+    return new Promise((resolve,reject)=>{setTimeout(()=>resolve("post data recives"),1000);
+    });
+}
+userdata()
+.then((userdata)=>{
+    console.log(userdata);
+    return postdata();
+})
+.then((postdata)=>{
+    console.log(postdata);
+
+})
+.catch((error)=>{
+    console.log(error);
+})
+ 
+async function myasyncfunction(){
+    try{
+        const data=await userdata();
+        console.log(data);
+        const post=await userdata();
+        console.log(post);
+    } catch(error){
+        console.log(error)
+    }
+}
+myasyncfunction()
+
+    </script>
+</body>
+</html>

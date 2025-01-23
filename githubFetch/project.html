@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub User Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub User Profile</h1>
+        
+        <div>
+            <label for="usernameInput">Enter GitHub Username: </label>
+            <input type="text" id="usernameInput" placeholder="Enter username" />
+            <button id="fetchButton">Fetch Profile</button>
+        </div>
+        
+        <div id="profile" class="profile">
+            <img id="avatar" src="" alt="User Avatar" class="avatar" />
+            <h2 id="username"></h2>
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>Bio:</strong> <span id="bio"></span></p>
+            <p id="repos"></p>
+            <p id="followers"></p>
+            <p id="following"></p>
+        </div>
+
+        <div id="error" class="error-message"></div>
+    </div>
+    <script>
+        // Function to fetch and display GitHub user data
+function getGitHubUser(username) {
+    fetch(`https://api.github.com/users/${username}`)
+        .then(response => response.json())
+        .then(data => {
+            // If user not found
+            if (data.message === "Not Found") {
+                document.getElementById('error').textContent = 'User not found. Please check the username.';
+                document.getElementById('profile').style.display = 'none';
+            } else {
+                document.getElementById('error').textContent = ''; // Clear any previous error messages
+                document.getElementById('profile').style.display = 'block';
+                
+                // Display user details
+                document.getElementById('username').textContent = data.login;
+                document.getElementById('name').textContent = data.name || 'N/A';
+                document.getElementById('bio').textContent = data.bio || 'No bio available';
+                document.getElementById('repos').textContent = Public Repos: ${data.public_repos};
+                document.getElementById('followers').textContent = Followers: ${data.followers};
+                document.getElementById('following').textContent = Following: ${data.following};
+                document.getElementById('avatar').src = data.avatar_url;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            document.getElementById('error').textContent = 'Error fetching data. Please try again later.';
+        });
+}
+
+// Adding event listener for button click
+document.getElementById('fetchButton').addEventListener('click', () => {
+    const username = document.getElementById('usernameInput').value.trim();
+    if (username) {
+        getGitHubUser(username); // Fetch and display data
+    } else {
+        document.getElementById('error').textContent = 'Please enter a valid username.';
+        document.getElementById('profile').style.display = 'none';
+    }
+});
+
+getGitHubUser("Jayasree235")
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+    <!--<h1>Github User</h1>
+    <input id="data" type="text" placeholder="Enter username">
+    <button id="fetch" onclick="GithubUser()">Fetch user</button>
+
+    <div id="userDetails">   
+        <img src="" id="avatar" alt="No image"/> 
+        <h2 id="name"></h2> 
+        <p id="repos"></p> 
+        <p id="followers"></p>
+    </div>
+
+    <script>
+        function getGitHubUser(username){
+            const url=`https://api.github.com/users/${username}`;
+          fetch(url)
+         .then(response => response.json())
+                .then(userData => {
+                    console.log('GitHub User Data:', userData);
+                    document.getElementById("name").textContent = userDetails.name;
+                    document.getElementById("avatar").src = userDetails.avatar_url;
+                })
+            .catch(error => {
+            console.error("Failed to fetch GitHub user data:", error);
+            });
+         }
+         getGitHubUser("Jayasree235");
+
+    </script>
+   
+    
+</body>
+</html>
+    <!--<script>
+
+        function GitHubUser(username){
+            const url =`https://api.github.com/users/${username}`;
+            fetch(url)
+            .then(response=>{
+                return response.json();
+            })
+            .then(data=>{
+                console.log(data);
+            
+                document.getElementById("avatar").src=userDetails.avatar_url;
+                document.getElementById("name").textContent=`Name: $(userDetails.name)`;
+                
+            })
+            .catch(error=>{
+                console.error("Error fetching user:", error);
+            });
+        }
+        GitHubUser("Jayasree235");
+    </script>-->
+<!---
+</body>
+</html>-->
